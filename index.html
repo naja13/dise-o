@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Telemetría</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYNzG1CYSeQy-CEC3qAXca5-cmj-Cd6ho&libraries=drawing"></script>
+
+	<script async defer src="jquery.min.js"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="calendario/tcal.css" />
+	<script type="text/javascript" src="calendario/tcal.js"></script> 
+
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a href="#" class="navbar-brand">UBICACIÓN DE AUTOMOVIL</a>
+
+		<!--<ul class="navbar-nav ml-auto" >
+			<form class="form-inline my-2 my-lg-0">
+				<input type="search" id="search" class="form-control mr-sm-2" name="">
+				<button class="btn btn-success my-2 my-sm-0" type="submit">
+					
+					Search
+				</button>
+				
+			</form>
+
+		</ul>-->
+	</nav>
+	<div class="container">
+		
+		<div class="row">
+			<div class="cold-md-3">
+					<div class="card">
+			        <nav class="navbar navbar-light bg-light">
+            			<a href="#" class="navbar-brand">
+
+            				<strong>Coordenas Actuales</strong>
+                		
+            			</a>
+       			    </nav>
+					<div class="card">
+						<div class="bg-dark text-light">ID</div>
+						<div id="id"></div>
+						<div class="bg-dark text-light">Fecha</div><div></div>
+						<div id="fecha"></div>
+						<div class="bg-dark text-light">Latitud</div><div></div>
+						<div id="latitud"></div>
+						<div class="bg-dark text-light">Longitud</div><div></div>
+						<div id="longitud"></div>
+					</div>
+
+					</div>
+					<br>
+					<input type="button" value="Rastrear Dispositivo" id="buscar"  class="btn btn-secondary  btn-block" name="b1" onclick="posact()">
+					<br>
+					<br>
+					<input type="button" value="Centrar" id="centrar" class="btn btn-secondary  btn-block" name="b1" onclick="centrar()">
+					<br>
+					<br>
+					<input type="button" value="Borrar Recorrido"  id="borrec" class="btn btn-secondary  btn-block" name="b1" onclick="deletepoli()">
+					<br>
+					<br>
+					<input type="button" value="Borrar Todo" id="borrar" class="btn btn-secondary  btn-block" name="b1" onclick="imap()">
+
+			</div>
+			<div class="col-md-6"> 
+				<div class="card">
+			        <nav class="navbar navbar-light bg-light">
+            			<a href="#" class="navbar-brand">
+
+            				<strong>Ubicación en el mapa</strong>
+                		
+            			</a>
+       			    </nav>
+					<div style="height: 500px" id="mapa" style="width: 40%; height: 500px"></div>
+
+				</div>
+			</div>
+			<div class="cold-md-3">
+				<div class="card">		
+					<nav class="navbar navbar-light bg-light">
+            			<a href="#" class="navbar-brand">
+
+            				<strong>Consultas Históricas</strong>
+                		
+            			</a>
+       			    </nav>
+				</div>
+	            <form >
+	                <input type="button" value="Determinar área geográfica" id="borrar" class="btn btn-secondary  btn-block" name="b1" onclick="idraw()">
+	                <p>  Fecha inicial:</p><div><input type="text" name="f1" id="f1" class="tcal" value=""/></div>
+	                <p>  Hora inicial:</p><input type="time" name="h1" id="h1">
+	                <p>  Fecha final:</p><div><input type="text" name="f2" id="f2" class="tcal" value=""/></div>
+	                <p>  Hora final:</p><input type="time" name="h2" id="h2">
+	                <br>
+	                <br>
+	                <input type="button" value="Consultar Históricos"  class="btn btn-secondary btn-block" name="b1" onclick="refconsul()">
+
+	                <script defer src = "app.js"> </script>
+	
+	                <p id="hist"></p>
+            	</form>
+
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>
