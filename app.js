@@ -5,6 +5,7 @@
 console.log("Go");
 
 
+
 document.getElementById("centrar").style.display="none";
 document.getElementById("borrec").style.display="none";
 posact_fn = null;
@@ -67,14 +68,38 @@ var poliforid=function(jdatos){
     }
 
     flightPath = [];
+    var color=null;
 
+    var ii=0;
     polhis.forEach(polvec =>{
-        let ft=new google.maps.Polyline({path:polvec,strokeColor:"#0000FF",strokeOpacity:0.8,strokeWeight:2});
+        var markerh=null;
+        var markersh=[];
+        color = give_color();
+        polvec.forEach(point =>{
+            var inf='El auto pasó por aquí el '+jdatos[ii].Fecha;
+
+            markerh = new google.maps.Marker({
+                position: point, 
+                map: gMapa, 
+                title:inf,
+                icon:{
+                   url     : "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png",
+                   size    : new google.maps.Size( 5, 5 ),
+                   anchor  : new google.maps.Point( 3, 3 )
+               }
+            }); 
+            markersh.push(marker); 
+            ii=ii+1; 
+        })
+
+
+        let ft=new google.maps.Polyline({path:polvec,strokeColor: color ,strokeOpacity:0.8,strokeWeight:8});
         ft.setMap(gMapa);
         flightPath.push(ft);
     })
 
 }
+
 
 var deletepoli=function(){
     flightPath.forEach(ft =>{
@@ -144,6 +169,7 @@ var idraw =function(){
         }();
         let jdatos=JSON.parse(datos);
         jdatoG = jdatos;
+        console.log(jdatos);
         poliforid(jdatos);
 
     })
@@ -157,7 +183,7 @@ var pos=[]; //vector que guardará posiciones para la polilinea
 var marker = new google.maps.Marker({position: gLatLon, map: gMapa}); // primer marcador por defecto
 marker.setMap(null); 
 markers.push(marker);
-
+var trayecact=[];
 
 function ref(){
     console.log("firme");
@@ -176,12 +202,15 @@ function ref(){
     }(); 
     let jdatos=JSON.parse(datos);
     var jdato=jdatos[0]
+    trayecact.push(jdato);
+    console.log(trayecact);
     document.getElementById('id').innerHTML=jdato.ID;
     document.getElementById('fecha').innerHTML=jdato.Fecha;
     document.getElementById('latitud').innerHTML=jdato.Latitud;
     document.getElementById('longitud').innerHTML=jdato.Longitud;
 
     refrescar_marcador(jdato.Latitud, jdato.Longitud);
+    poliforid(trayecact);
 }
 
 //Función que refresca el marcador
@@ -190,9 +219,6 @@ function refrescar_marcador(latitud, longitud){
 
     marker = new google.maps.Marker({position: new google.maps.LatLng(latitud, longitud), map: gMapa}); //Se establece el marcador en función de la posición dada y el mapa gMapa creado
     markers.push(marker); //Se agrega al array markers el nuevo marcador
-
-    pos.push(new google.maps.LatLng(latitud, longitud));// se agrega a posición a pos
-    polilinea(pos); // se dibuja la polilinea
     markers[markers.length - 2].setMap(null); //Se elimina del mapa el marcador anterior
     markers.shift(); //Eliminar del array markers el anterior marcador para evitar uso innesesario de memoria
     
@@ -209,6 +235,8 @@ var centrar =function(){
 
 
 
+//Consulta por fecha
+
 function refconsul(){
 
     var h1 =document.getElementById('h1').value;
@@ -216,21 +244,36 @@ function refconsul(){
     var h2 =document.getElementById('h2').value;
     var f2 =document.getElementById('f2').value;
 
+    if(h1==0){
+        h1="00:00:00"; 
+
+    }
+        else{
+            h1=h1+":00";
+        }
+
+
     if(h2==0){
         h2="23:59:59"; 
-        console.log("hora");
+
     }
-    h1=h1+":00";
-    h2=h2+":00";
+        else{
+            h2=h2+":00";
+        }
+
+    
+    
+    
 
     var fh1=f1+" "+h1;
     var fh2=f2+" "+h2;
 
     var intJson={"t1":fh1 , "t2":fh2}; //Json que se enviará a php
+    console.log(intJson);
 
 
-    if ( circle==null){
-        var datos = function(){ //la función datos hace la solisitud a la BD con datos.php
+    if ( circle==null){ //Si no se ha hecho una consulta por área 
+        var datos = function(){ 
             let tmp = null;
             $.ajax({
                 'async': false,
@@ -248,7 +291,7 @@ function refconsul(){
         let polhis=[];
         jdatos.forEach(jdato =>{  polhis.push(jdato); });
         poliforid(polhis);
-    }else{
+    }else{ //Dado el caso que si haya anteriormente una consulta por área
 
         deletepoli();
         var polhis=[];  
@@ -266,7 +309,7 @@ function refconsul(){
 }
 
 
-
+//Función para hallar 
 var getKilometros = function(lat1,lon1,lat2,lon2)
  {
      rad = function(x) {return x*Math.PI/180;}
@@ -281,6 +324,21 @@ var getKilometros = function(lat1,lon1,lat2,lon2)
 
 
 
+//  Genrador de colores aleatorios
 
+var aleatorio = function (inferior,superior){ 
+   numPosibilidades = superior - inferior 
+   aleat = Math.random() * numPosibilidades 
+   aleat = Math.floor(aleat) 
+   return parseInt(inferior) + aleat 
+}
 
-
+var  give_color = function(){ 
+   hexadecimal = new Array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F") 
+   color_aleatorio = "#"; 
+   for (i=0;i<6;i++){ 
+      posarray = aleatorio(0,hexadecimal.length) 
+      color_aleatorio += hexadecimal[posarray] 
+   } 
+   return color_aleatorio 
+}

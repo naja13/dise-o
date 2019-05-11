@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYNzG1CYSeQy-CEC3qAXca5-cmj-Cd6ho&libraries=drawing"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYNzG1CYSeQy-CEC3qAXca5-cmj-Cd6ho&libraries=drawing"></script>
 
 	<script async defer src="jquery.min.js"></script>
 
@@ -17,28 +17,20 @@
 	<script type="text/javascript" src="calendario/tcal.js"></script> 
 
 
+
 </head>
 <body>
+
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a href="#" class="navbar-brand">UBICACIÓN DE AUTOMOVIL</a>
 
-		<!--<ul class="navbar-nav ml-auto" >
-			<form class="form-inline my-2 my-lg-0">
-				<input type="search" id="search" class="form-control mr-sm-2" name="">
-				<button class="btn btn-success my-2 my-sm-0" type="submit">
-					
-					Search
-				</button>
-				
-			</form>
-
-		</ul>-->
 	</nav>
+
 	<div class="container">
 		
 		<div class="row">
-			<div class="cold-md-3">
+			<div class="cold-md-3" id="p1">
 					<div class="card">
 			        <nav class="navbar navbar-light bg-light">
             			<a href="#" class="navbar-brand">
@@ -72,7 +64,7 @@
 					<input type="button" value="Borrar Todo" id="borrar" class="btn btn-secondary  btn-block" name="b1" onclick="imap()">
 
 			</div>
-			<div class="col-md-6"> 
+			<div class="col-md-6" id="p2"> 
 				<div class="card">
 			        <nav class="navbar navbar-light bg-light">
             			<a href="#" class="navbar-brand">
@@ -85,7 +77,7 @@
 
 				</div>
 			</div>
-			<div class="cold-md-3">
+			<div class="cold-md-3" id="p3">
 				<div class="card">		
 					<nav class="navbar navbar-light bg-light">
             			<a href="#" class="navbar-brand">
@@ -96,11 +88,11 @@
        			    </nav>
 				</div>
 	            <form >
-	                <input type="button" value="Determinar área geográfica" id="borrar" class="btn btn-secondary  btn-block" name="b1" onclick="idraw()">
-	                <p>  Fecha inicial:</p><div><input type="text" name="f1" id="f1" class="tcal" value=""/></div>
-	                <p>  Hora inicial:</p><input type="time" name="h1" id="h1">
-	                <p>  Fecha final:</p><div><input type="text" name="f2" id="f2" class="tcal" value=""/></div>
-	                <p>  Hora final:</p><input type="time" name="h2" id="h2">
+	                <input type="button" value="Determinar área geográfica" id="borrar" class="btn btn-secondary  btn-block " name="b1" onclick="idraw()">
+	                <p>  Fecha y hora inicial</p><a><input type="text" name="f1" autocomplete="off"  id="f1" class="tcal rounded bg-light" size="10"  value=""/></a>
+	                <input type="time" class="rounded bg-light" name="h1" id="h1">
+	                <p>  Fecha y hora final</p><a><input type="text" class="tcal rounded bg-light" name="f2" autocomplete="off" id="f2" class="tcal rounded bg-light" size="10" value=""/></a>
+	                <input type="time" class="rounded bg-light" name="h2" id="h2">
 	                <br>
 	                <br>
 	                <input type="button" value="Consultar Históricos"  class="btn btn-secondary btn-block" name="b1" onclick="refconsul()">
@@ -108,6 +100,8 @@
 	                <script defer src = "app.js"> </script>
 	
 	                <p id="hist"></p>
+
+
             	</form>
 
 			</div>
